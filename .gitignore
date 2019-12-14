@@ -1,0 +1,7 @@
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
+terraform_key
+terraform_key.pub
+credentials.json
