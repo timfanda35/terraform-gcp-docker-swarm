@@ -32,6 +32,11 @@ resource "google_compute_instance" "workers" {
   # join the swarm
   provisioner "remote-exec" {
     inline = [
+      "sudo systemctl stop packagekit && sudo systemctl stop packagekit",
+      "curl -sSO https://dl.google.com/cloudagents/install-monitoring-agent.sh | sudo sh",
+      "curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh | sudo sh",
+      "curl -fsSL 'https://get.docker.com/' | sudo sh",
+      "sudo systemctl enable docker && sudo systemctl start docker",
       "sudo docker swarm join --token ${data.external.swarm_tokens.result.worker} ${google_compute_instance.managers.0.name}:2377",
     ]
   }

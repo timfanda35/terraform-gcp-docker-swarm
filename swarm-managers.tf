@@ -31,6 +31,11 @@ resource "google_compute_instance" "managers" {
 
   provisioner "remote-exec" {
     inline = [
+      "sudo systemctl stop packagekit && sudo systemctl stop packagekit",
+      "curl -sSO https://dl.google.com/cloudagents/install-monitoring-agent.sh | sudo sh",
+      "curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh | sudo sh",
+      "curl -fsSL 'https://get.docker.com/' | sudo sh",
+      "sudo systemctl enable docker && sudo systemctl start docker",
       "sudo docker swarm init --advertise-addr ${self.network_interface.0.network_ip}",
     ]
   }
