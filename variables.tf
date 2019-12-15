@@ -29,7 +29,7 @@ variable "ssh_key_file" {
 
 variable "image_name" {
   description = "Image to be used"
-  default     = "coreos-stable-1911-5-0-v20181219"
+  default     = "centos-7-v20191121"
 }
 
 variable "swarm_managers" {
