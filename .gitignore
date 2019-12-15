@@ -1,6 +1,5 @@
 .terraform
-terraform.tfstate
-terraform.tfstate.backup
+terraform.tfstate*
 terraform.tfvars
 terraform_key
 terraform_key.pub
