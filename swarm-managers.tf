@@ -42,7 +42,7 @@ resource "google_compute_instance" "managers" {
 }
 
 data "external" "swarm_tokens" {
-  program = ["${path.module}/fetch-tokens.sh"]
+  program = ["${path.module}/scripts/fetch-tokens.sh"]
 
   query = {
     host = "${google_compute_instance.managers.0.network_interface.0.access_config.0.nat_ip}"
