@@ -4,7 +4,7 @@ resource "google_compute_instance" "managers" {
   machine_type = "${var.swarm_managers_instance_type}"
   zone         = "${var.zone}"
   tags         = ["swarm", "manager"]
-  depends_on   = ["google_compute_firewall.swarm-internet", "google_compute_firewall.swarm-internal"]
+  depends_on   = ["google_compute_subnetwork.swarm_managers", "google_compute_firewall.swarm_internal_management"]
 
   boot_disk {
     initialize_params {
@@ -18,7 +18,8 @@ resource "google_compute_instance" "managers" {
   }
 
   network_interface {
-    network       = "${google_compute_network.swarm.name}"
+    network       = "${google_compute_network.swarm.self_link}"
+    subnetwork    = "${google_compute_subnetwork.swarm_managers.self_link}"
     access_config {}
   }
 
@@ -61,7 +62,6 @@ resource "google_compute_instance" "manager-followers" {
   machine_type = "${var.swarm_managers_instance_type}"
   zone         = "${var.zone}"
   tags         = ["swarm", "manager"]
-  depends_on   = ["google_compute_firewall.swarm-internet", "google_compute_firewall.swarm-internal"]
 
   boot_disk {
     initialize_params {
@@ -76,6 +76,7 @@ resource "google_compute_instance" "manager-followers" {
 
   network_interface {
     network       = "${google_compute_network.swarm.name}"
+    subnetwork    = "${google_compute_subnetwork.swarm_managers.self_link}"
     access_config {}
   }
 

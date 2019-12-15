@@ -68,3 +68,7 @@ services:
 ```
 docker stack deploy -c stack.yml frontend
 ```
+
+## Reference
+
+https://github.com/stefanprodan/swarm-gcp-faas

@@ -4,7 +4,6 @@ resource "google_compute_instance" "workers" {
   machine_type = "${var.swarm_workers_instance_type}"
   zone         = "${var.zone}"
   tags         = ["swarm", "worker"]
-  depends_on   = ["google_compute_instance.managers"]
 
   boot_disk {
     initialize_params {
@@ -18,7 +17,8 @@ resource "google_compute_instance" "workers" {
   }
 
   network_interface {
-    network       = "${google_compute_network.swarm.name}"
+    network       = "${google_compute_network.swarm.self_link}"
+    subnetwork    = "${google_compute_subnetwork.swarm_workers.self_link}"
     access_config {}
   }
 
