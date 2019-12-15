@@ -45,3 +45,26 @@ docker service create --name=visualizer --publish=8080:8080/tcp \
        --constraint=node.role==manager --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
        dockersamples/visualizer
 ```
+
+Deploy a simple service
+
+Edit `stack.yml`
+
+```
+version: '3'
+
+services:
+  web:
+    deploy:
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
+    image: nginx
+    ports:
+      - "8081:80"
+```
+
+```
+docker stack deploy -c stack.yml frontend
+```

@@ -29,7 +29,7 @@ resource "google_compute_firewall" "swarm-internet" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22", "8080"]
+    ports    = ["22", "8080-8090"]
   }
 
   source_ranges = ["0.0.0.0/0"]
